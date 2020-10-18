@@ -1,0 +1,24 @@
+{
+  "name": "flying-start-expressjs",
+  "version": "1.0.0",
+  "description": "Learning Node JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sirajbd0176/flying-start-expressjs.git"
+  },
+  "keywords": [
+    "node",
+    "express.js",
+    "mongodb"
+  ],
+  "author": "Asad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sirajbd0176/flying-start-expressjs/issues"
+  },
+  "homepage": "https://github.com/sirajbd0176/flying-start-expressjs#readme"
+}
