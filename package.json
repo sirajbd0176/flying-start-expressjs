@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/sirajbd0176/flying-start-expressjs/issues"
   },
-  "homepage": "https://github.com/sirajbd0176/flying-start-expressjs#readme"
+  "homepage": "https://github.com/sirajbd0176/flying-start-expressjs#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
