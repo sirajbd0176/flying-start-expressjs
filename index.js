@@ -1,4 +1,3 @@
-const e = require('express');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -8,10 +7,13 @@ var users = [
   { username: 'sabbir', password: 123 },
   { username: 'seraj', password: 'tomcat' }
 ];
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/', express.static(path.join(__dirname, 'public')));
+// for parsing application/json
+app.use(bodyParser.json());
+// for parsing application/x-www-form
+app.use(bodyParser.urlencoded({ extended: true })); 
+// serve static content for the app from the "public directory in the application directory
+app.use('/', express.static(path.join(__dirname, 'public'))); 
 
 signUpHandler = (req, res) => {
   var foundUser = users.find((u) => u.username == req.body.username);
