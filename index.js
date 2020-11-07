@@ -8,6 +8,15 @@ var users = [
   { username: 'seraj', password: 'tomcat' }
 ];
 
+var User = {};
+User.findOne = function(jsonData, fn) {
+  var foundUser = users.find((u) => u.username == jsonData.username);
+  if (!foundUser) {
+    return fn(null, null);
+  }
+  return fn(null, foundUser);
+};
+
 // for parsing application/json
 app.use(bodyParser.json());
 // for parsing application/x-www-form
@@ -16,14 +25,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', express.static(path.join(__dirname, 'public'))); 
 
 signUpHandler = (req, res) => {
-  var foundUser = users.find((u) => u.username == req.body.username);
-  if (!foundUser) {
-    return res.res.status(500).json({ message: 'user [' + req.body.username + '] not found' });
-  }
-  if (foundUser.password != req.body.password) {
-    return res.status(500).json({ message: 'wrong passwword' });
-  }
-  res.send({ message: 'OK' });
+
+  User.findOne({username: req.body.username},function(err, user){
+    if(err) { 
+      return res.status(500).json(err);
+    }
+    if(!user) {
+      return res.status(500).json({ message: 'user [' + req.body.username + '] not found' });
+    }
+    if (user.password != req.body.password) {
+      return res.status(500).json({ message: 'wrong passwword' });
+    }
+    res.send({ message: 'OK' });
+  });
 }
 
 app.post('/signup', signUpHandler);
