@@ -1,44 +1,24 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const port = process.env.PORT || 5000;
+const express = require('express'),
+      app = express(),
+      bodyParser = require('body-parser'),
+      port = process.env.PORT || 5000,
+      dbUrl = process.env.MONGO_DB_URL || 'mongodb://localhost:27017/flying-start-express';
 var path = require('path');
-var users = [
-  { username: 'sabbir', password: 123 },
-  { username: 'seraj', password: 'tomcat' }
-];
+var mongoose = require('mongoose');
+const { signUpHandler } = require('./controllers/signup.controller');
 
-var User = {};
-User.findOne = function(jsonData, fn) {
-  var foundUser = users.find((u) => u.username == jsonData.username);
-  if (!foundUser) {
-    return fn(null, null);
-  }
-  return fn(null, foundUser);
-};
+
+
+mongoose.connect( dbUrl, {useNewUrlParser: true})
+        .then(() => console.log('DB connected'))
+        .catch((err) => console.log('Connection failed: '+ err));
 
 // for parsing application/json
 app.use(bodyParser.json());
 // for parsing application/x-www-form
-app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: true }));
 // serve static content for the app from the "public directory in the application directory
 app.use('/', express.static(path.join(__dirname, 'public'))); 
-
-signUpHandler = (req, res) => {
-
-  User.findOne({username: req.body.username},function(err, user){
-    if(err) { 
-      return res.status(500).json(err);
-    }
-    if(!user) {
-      return res.status(500).json({ message: 'user [' + req.body.username + '] not found' });
-    }
-    if (user.password != req.body.password) {
-      return res.status(500).json({ message: 'wrong passwword' });
-    }
-    res.send({ message: 'OK' });
-  });
-}
 
 app.post('/signup', signUpHandler);
 
