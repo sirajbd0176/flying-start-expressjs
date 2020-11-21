@@ -1,4 +1,4 @@
-var { User } = require("./../models/users.model");
+import { User } from "./../models/users.model";
 
 signUpHandler = (req, res) => {
 
@@ -7,4 +7,4 @@ signUpHandler = (req, res) => {
     res.send({ message: 'OK' });
   };
 
-  exports.signUpHandler = signUpHandler;
+export const signUpHandler = signUpHandler;
