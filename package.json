@@ -25,6 +25,7 @@
   "homepage": "https://github.com/sirajbd0176/flying-start-expressjs#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.13"
   }
 }
